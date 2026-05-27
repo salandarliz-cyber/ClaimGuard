@@ -28,10 +28,10 @@ const SO_DAY_COLORS: Record<string, { bg: string; border: string; label: string 
 function getDayColors(entry: LogEntry | undefined) {
   if (!entry) return SO_DAY_COLORS.none
   const rating = getDayRating(entry)
-  if (rating >= 8) return SO_DAY_COLORS.hard
-  if (rating >= 6) return SO_DAY_COLORS.moderate
-  if (rating >= 4) return SO_DAY_COLORS.good
-  return SO_DAY_COLORS.great
+  if (rating === 'bad')    return SO_DAY_COLORS.hard
+  if (rating === 'rough')  return SO_DAY_COLORS.moderate
+  if (rating === 'medium') return SO_DAY_COLORS.good
+  return SO_DAY_COLORS.great  // 'decent' | 'good'
 }
 
 export function CalendarHeatmap({

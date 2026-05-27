@@ -51,10 +51,10 @@ export function EmojiScale({ label, value, onChange, description, className, inv
 
       {/* Emoji row */}
       <div className="flex justify-between px-0.5" aria-hidden>
-        {Object.values(EMOJI_SCALE)
+        {Object.entries(EMOJI_SCALE)
           .filter((_, i) => i % 2 === 0)
-          .map((e) => (
-            <span key={e.value} className="text-xl leading-none">{e.emoji}</span>
+          .map(([key, e]) => (
+            <span key={key} className="text-xl leading-none">{e.emoji}</span>
           ))}
       </div>
 

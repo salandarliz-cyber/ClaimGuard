@@ -1,0 +1,233 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ═══════════════════════════════════════════════════════════════════════
+   SERENE OASIS — Accessible Light Mode Palette
+   Optimized for disabled users: high contrast, calming tones, low fatigue
+   ═══════════════════════════════════════════════════════════════════════ */
+
+:root {
+  /* Serene Oasis core */
+  --so-bg:          #F1F7FA;   /* main page background */
+  --so-card:        #FFFFFF;   /* card/panel surfaces */
+  --so-card-alt:    #E6F0F5;   /* subtle card alternate */
+  --so-input:       #EAF2F6;   /* input/field backgrounds */
+  --so-border:      #C8D8E0;   /* borders, dividers */
+  --so-border-soft: #DDE6EB;   /* very soft border */
+
+  /* Text */
+  --so-text:        #13293D;   /* primary text — deep navy */
+  --so-text-2:      #2D4A61;   /* secondary text */
+  --so-text-3:      #475A72;   /* tertiary / labels */
+  --so-text-hint:   #7B95A8;   /* hints, placeholders */
+
+  /* Primary accent — calming teal */
+  --so-primary:     #1E7F94;
+  --so-primary-dk:  #165F6E;   /* hover / pressed */
+  --so-primary-lt:  #D4ECF1;   /* subtle background tint */
+  --so-primary-ring: #1E7F94;
+
+  /* Success accent — sage green */
+  --so-success:     #4A9C7E;
+  --so-success-dk:  #3A7D65;
+  --so-success-lt:  #D4EDDF;
+
+  /* Warning — soft amber */
+  --so-warning:     #D9A23C;
+  --so-warning-lt:  #FDF3DC;
+  --so-warning-border: #E8C070;
+
+  /* Danger */
+  --so-danger:      #D64040;
+  --so-danger-lt:   #FDEAEA;
+
+  /* ── shadcn/ui CSS variable overrides (HSL format) ── */
+  --background:        204 38% 96%;   /* #F1F7FA */
+  --foreground:        210 52% 16%;   /* #13293D */
+  --card:              0 0% 100%;     /* #FFFFFF */
+  --card-foreground:   210 52% 16%;
+  --popover:           0 0% 100%;
+  --popover-foreground: 210 52% 16%;
+  --primary:           191 66% 35%;   /* #1E7F94 */
+  --primary-foreground: 0 0% 100%;
+  --secondary:         203 22% 89%;   /* #DDE6EB */
+  --secondary-foreground: 210 52% 16%;
+  --muted:             203 22% 89%;
+  --muted-foreground:  213 23% 36%;   /* #475A72 */
+  --accent:            191 66% 35%;
+  --accent-foreground: 0 0% 100%;
+  --destructive:       0 62% 52%;
+  --destructive-foreground: 0 0% 100%;
+  --border:            203 20% 84%;   /* #C8D8E0 */
+  --input:             200 25% 91%;   /* #EAF2F6 */
+  --ring:              191 66% 35%;
+  --radius:            0.625rem;
+
+  /* Chart colors */
+  --chart-1: 191 66% 35%;
+  --chart-2: 158 36% 45%;
+  --chart-3: 38 64% 54%;
+  --chart-4: 210 52% 35%;
+  --chart-5: 213 23% 56%;
+}
+
+/* ── Dark mode variant (toggle with .dark class) ─────────────────────── */
+.dark {
+  --so-bg:       #0F1F2E;
+  --so-card:     #1A2E3F;
+  --so-card-alt: #1F3549;
+  --so-input:    #1A2E3F;
+  --so-border:   #2A4458;
+  --so-border-soft: #1E3347;
+
+  --so-text:     #E6F0F5;
+  --so-text-2:   #C5D8E5;
+  --so-text-3:   #8EAFBE;
+  --so-text-hint: #5F84A0;
+
+  --background:        210 50% 12%;
+  --foreground:        204 38% 93%;
+  --card:              210 47% 17%;
+  --card-foreground:   204 38% 93%;
+  --popover:           210 47% 17%;
+  --popover-foreground: 204 38% 93%;
+  --secondary:         210 35% 22%;
+  --secondary-foreground: 204 38% 93%;
+  --muted:             210 35% 22%;
+  --muted-foreground:  204 20% 65%;
+  --border:            210 35% 28%;
+  --input:             210 47% 17%;
+}
+
+/* ── Base element styles ─────────────────────────────────────────────── */
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    font-size: 16px;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--so-bg);
+    color: var(--so-text);
+    @apply antialiased;
+    font-feature-settings: "rlig" 1, "calt" 1;
+    line-height: 1.6;
+  }
+
+  /* Comfortable focus ring for keyboard users */
+  :focus-visible {
+    outline: 2px solid var(--so-primary);
+    outline-offset: 2px;
+  }
+}
+
+/* ── Custom range slider — teal thumb ───────────────────────────────── */
+input[type='range'] {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+input[type='range']::-webkit-slider-runnable-track {
+  height: 6px;
+  border-radius: 9999px;
+  background: var(--so-border);
+}
+
+input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--so-primary);
+  margin-top: -7px;
+  border: 2px solid #ffffff;
+  box-shadow: 0 1px 4px rgba(30, 127, 148, 0.4);
+  transition: background 0.15s, transform 0.1s;
+}
+
+input[type='range']::-webkit-slider-thumb:hover {
+  background: var(--so-primary-dk);
+  transform: scale(1.1);
+}
+
+input[type='range']::-webkit-slider-thumb:active {
+  transform: scale(1.15);
+}
+
+input[type='range']::-moz-range-track {
+  height: 6px;
+  border-radius: 9999px;
+  background: var(--so-border);
+}
+
+input[type='range']::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--so-primary);
+  border: 2px solid #ffffff;
+  box-shadow: 0 1px 4px rgba(30, 127, 148, 0.4);
+  cursor: pointer;
+}
+
+/* Fill left of thumb with accent color */
+input[type='range'].filled::-webkit-slider-runnable-track {
+  background: linear-gradient(
+    to right,
+    var(--so-primary) 0%,
+    var(--so-primary) var(--fill-pct, 50%),
+    var(--so-border) var(--fill-pct, 50%),
+    var(--so-border) 100%
+  );
+}
+
+/* ── Accessible scrollbars ───────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--so-card-alt);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #B0C8D5;
+  border-radius: 4px;
+  border: 2px solid var(--so-card-alt);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--so-primary);
+}
+
+/* ── Utility: "pb-safe" for iOS safe area ───────────────────────────── */
+.pb-safe {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+/* ── Skip link for keyboard accessibility ───────────────────────────── */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 9999;
+  background: var(--so-primary);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 0 0 8px 0;
+  font-weight: 600;
+}
+
+.skip-link:focus {
+  left: 0;
+}

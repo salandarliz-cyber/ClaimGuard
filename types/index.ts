@@ -81,4 +81,3 @@ export interface AppData {
   version: string
 }
 
-export type ViewType = 'home' | 'checkin' | 'trends' | 'export'

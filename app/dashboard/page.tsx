@@ -11,7 +11,7 @@ import { CalendarHeatmap } from '@/components/calendar-heatmap'
 import { TrendCharts } from '@/components/trend-charts'
 import { DisclaimerBanner } from '@/components/disclaimer-banner'
 import { getEntries, getSettings, getStreakDays } from '@/lib/storage'
-import { SYMPTOM_TAGS_DEFAULT } from '@/lib/constants'
+import { severityEmoji, getTagLabel } from '@/lib/constants'
 import { LogEntry, UserSettings, CompanionId } from '@/types'
 import { getCompanion, getDailyOpening } from '@/lib/companions'
 import { Plus, Activity, Calendar, Shield, Flame, TrendingUp } from 'lucide-react'
@@ -149,10 +149,7 @@ export default function DashboardPage() {
               </div>
               <div className="flex items-center gap-2">
                 <span className="text-2xl">
-                  {todayEntry.overallSeverity >= 9 ? '💀' :
-                   todayEntry.overallSeverity >= 7 ? '😭' :
-                   todayEntry.overallSeverity >= 5 ? '😣' :
-                   todayEntry.overallSeverity >= 3 ? '😕' : '😐'}
+                  {severityEmoji(todayEntry.overallSeverity)}
                 </span>
                 <Link href="/log">
                   <Button variant="outline" size="sm" className="border-[#C8D8E0] text-[#475A72] hover:bg-[#EAF2F6]">Edit</Button>
@@ -161,14 +158,11 @@ export default function DashboardPage() {
             </div>
             {(todayEntry.symptomTags ?? []).length > 0 && (
               <div className="flex flex-wrap gap-1 mt-2.5">
-                {todayEntry.symptomTags.slice(0, 3).map(id => {
-                  const tag = SYMPTOM_TAGS_DEFAULT.find(t => t.id === id)
-                  return (
+                {todayEntry.symptomTags.slice(0, 3).map(id => (
                     <Badge key={id} variant="secondary" className="bg-[#EAF2F6] text-[#7B95A8] text-xs">
-                      {tag?.label.replace(/^[^\s]+ /, '') || id}
+                      {getTagLabel(id)}
                     </Badge>
-                  )
-                })}
+                  ))}
                 {todayEntry.symptomTags.length > 3 && (
                   <Badge variant="secondary" className="bg-[#EAF2F6] text-[#9CB3C2] text-xs">
                     +{todayEntry.symptomTags.length - 3}
@@ -245,10 +239,9 @@ export default function DashboardPage() {
             </div>
             {(selectedEntry.symptomTags ?? []).length > 0 && (
               <div className="flex flex-wrap gap-1 mt-2">
-                {selectedEntry.symptomTags.slice(0, 4).map(id => {
-                  const tag = SYMPTOM_TAGS_DEFAULT.find(t => t.id === id)
-                  return <Badge key={id} variant="secondary" className="bg-[#EAF2F6] text-xs">{tag?.label.replace(/^[^\s]+ /, '') || id}</Badge>
-                })}
+                {selectedEntry.symptomTags.slice(0, 4).map(id => (
+                  <Badge key={id} variant="secondary" className="bg-[#EAF2F6] text-xs">{getTagLabel(id)}</Badge>
+                ))}
               </div>
             )}
             {selectedEntry.notes && (

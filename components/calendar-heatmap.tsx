@@ -2,7 +2,7 @@
 
 import { useMemo, useState, useEffect } from "react"
 import { ChevronLeft, ChevronRight } from "lucide-react"
-import { DAY_COLORS, getDayRating } from "@/lib/constants"
+import { getDayRating } from "@/lib/constants"
 import type { LogEntry } from "@/types"
 import { cn } from "@/lib/utils"
 
@@ -49,20 +49,13 @@ export function CalendarHeatmap({
     return m
   }, [entries])
 
-  const { year, month, days } = useMemo(() => {
+  const { year, month, days, firstDow } = useMemo(() => {
     const y = currentMonth.getFullYear()
     const m = currentMonth.getMonth()
     const daysInMonth = new Date(y, m + 1, 0).getDate()
     const firstDow = new Date(y, m, 1).getDay()
     return { year: y, month: m, days: daysInMonth, firstDow }
     // eslint-disable-next-line
-  }, [currentMonth])
-
-  const { firstDow } = useMemo(() => {
-    const y = currentMonth.getFullYear()
-    const m = currentMonth.getMonth()
-    const firstDow = new Date(y, m, 1).getDay()
-    return { firstDow }
   }, [currentMonth])
 
   const [today, setToday] = useState<string>('')

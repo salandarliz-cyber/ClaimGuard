@@ -5,10 +5,9 @@ import { motion, AnimatePresence } from "framer-motion"
 import { Send, Trash2, MessageCircle } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Textarea } from "@/components/ui/textarea"
-import { getSettings } from "@/lib/storage"
+import { getSettings, getEntries } from "@/lib/storage"
 import { getCompanion, getChatResponse, getDailyOpening } from "@/lib/companions"
 import { getChatMessages, addChatMessage, clearChatMessages, createMessage } from "@/lib/chat-storage"
-import { getEntries } from "@/lib/storage"
 import type { ChatMessage, CompanionId } from "@/types"
 
 function formatTime(iso: string): string {
@@ -24,7 +23,6 @@ export default function ChatPage() {
   const [messages, setMessages] = useState<ChatMessage[]>([])
   const [input, setInput] = useState("")
   const [companionId, setCompanionId] = useState<CompanionId>("neutral")
-  const [userName, setUserName] = useState("")
   const [isTyping, setIsTyping] = useState(false)
   const [showClearConfirm, setShowClearConfirm] = useState(false)
   const bottomRef = useRef<HTMLDivElement>(null)
@@ -34,7 +32,6 @@ export default function ChatPage() {
     setMounted(true)
     const settings = getSettings()
     setCompanionId(settings.companionId ?? "neutral")
-    setUserName(settings.userName ?? "")
     const stored = getChatMessages()
     if (stored.length === 0) {
       // Inject opening reflection as first message

@@ -59,13 +59,13 @@ export const RELIEF_FACTORS_DEFAULT = [
   'Gentle movement', 'Meditation', 'Shower/bath', 'Nothing helped', 'Sleep', 'Elevation',
 ]
 
-export const DAY_COLORS: Record<string, string> = {
-  bad:    '#ef4444',  // red-500
-  rough:  '#f97316',  // orange-500
-  medium: '#eab308',  // yellow-500
-  decent: '#84cc16',  // lime-500
-  good:   '#22c55e',  // green-500
-  none:   '#1e293b',  // slate-800
+export function severityEmoji(s: number): string {
+  return s >= 9 ? '💀' : s >= 7 ? '😭' : s >= 5 ? '😣' : s >= 3 ? '😕' : '😐'
+}
+
+export function getTagLabel(id: string): string {
+  const tag = SYMPTOM_TAGS_DEFAULT.find(t => t.id === id)
+  return tag?.label.replace(/^[^\s]+ /, '') || id
 }
 
 export function getDayRating(entry: Pick<LogEntry, 'overallSeverity'>): string {

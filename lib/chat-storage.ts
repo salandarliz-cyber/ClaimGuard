@@ -1,11 +1,8 @@
 import type { ChatMessage } from '@/types'
+import { isClient } from '@/lib/utils'
 
 const CHAT_KEY = 'claimguard_chat_messages'
 const MAX_MESSAGES = 200
-
-function isClient(): boolean {
-  return typeof window !== 'undefined'
-}
 
 export function getChatMessages(): ChatMessage[] {
   if (!isClient()) return []

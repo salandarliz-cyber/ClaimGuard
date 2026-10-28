@@ -9,7 +9,7 @@ import { Badge } from '@/components/ui/badge'
 import { NavBar } from '@/components/nav-bar'
 import { getEntries } from '@/lib/storage'
 import { LogEntry } from '@/types'
-import { SYMPTOM_TAGS_DEFAULT } from '@/lib/constants'
+import { severityEmoji, getTagLabel } from '@/lib/constants'
 import { cn } from '@/lib/utils'
 import { Edit } from 'lucide-react'
 
@@ -18,9 +18,6 @@ const SEV_COLOR = (s: number) =>
 
 const BORDER_COLOR = (s: number) =>
   s >= 8 ? 'border-l-red-500' : s >= 6 ? 'border-l-orange-500' : s >= 4 ? 'border-l-yellow-500' : 'border-l-green-500'
-
-const EMOJI = (s: number) =>
-  s >= 9 ? '💀' : s >= 7 ? '😭' : s >= 5 ? '😣' : s >= 3 ? '😕' : '😐'
 
 export default function HistoryPage() {
   const [entries, setEntries] = useState<LogEntry[]>([])
@@ -63,10 +60,7 @@ export default function HistoryPage() {
           </div>
         ) : (
           entries.map((entry, i) => {
-            const tagLabels = (entry.symptomTags ?? []).slice(0, 2).map(id => {
-              const tag = SYMPTOM_TAGS_DEFAULT.find(t => t.id === id)
-              return tag?.label.replace(/^[^\s]+ /, '') || id
-            })
+            const tagLabels = (entry.symptomTags ?? []).slice(0, 2).map(id => getTagLabel(id))
 
             return (
               <motion.div
@@ -100,7 +94,7 @@ export default function HistoryPage() {
                         </div>
                       </div>
                       <div className="flex items-center gap-2">
-                        <span className="text-2xl select-none" aria-hidden>{EMOJI(entry.overallSeverity)}</span>
+                        <span className="text-2xl select-none" aria-hidden>{severityEmoji(entry.overallSeverity)}</span>
                         <Link href="/log">
                           <Button variant="ghost" size="icon" className="h-8 w-8 text-[#9CB3C2] hover:text-[#475A72]">
                             <Edit className="h-3.5 w-3.5" />

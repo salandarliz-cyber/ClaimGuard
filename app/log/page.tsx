@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Button } from '@/components/ui/button'
@@ -72,6 +72,8 @@ function toggle<T>(arr: T[], item: T): T[] {
   return arr.includes(item) ? arr.filter(x => x !== item) : [...arr, item]
 }
 
+const RANGE_CLS = "flex-1 h-2 rounded-full appearance-none cursor-pointer accent-[#1E7F94] bg-[#DDE6EB]"
+
 // Mini horizontal score slider
 function ScoreMini({
   label, value, onChange,
@@ -89,7 +91,7 @@ function ScoreMini({
       <input
         type="range" min={1} max={10} step={1} value={value}
         onChange={e => onChange(parseInt(e.target.value))}
-        className="w-full h-2 rounded-full appearance-none cursor-pointer accent-[#1E7F94] bg-[#DDE6EB]"
+        className={RANGE_CLS}
         aria-label={label}
       />
     </div>
@@ -118,9 +120,9 @@ export default function LogPage() {
     }
   }, [today])
 
-  const upd = useCallback((changes: Partial<LogEntry>) => {
+  function upd(changes: Partial<LogEntry>) {
     setDraft(prev => ({ ...prev, ...changes }))
-  }, [])
+  }
 
   const handleSave = () => {
     const d = draft
@@ -344,7 +346,7 @@ export default function LogPage() {
                         type="range" min={0} max={120} step={5}
                         value={draft.concentrationMinutes ?? 30}
                         onChange={e => upd({ concentrationMinutes: parseInt(e.target.value) })}
-                        className="flex-1 h-2 rounded-full appearance-none cursor-pointer accent-[#1E7F94] bg-[#DDE6EB]"
+                        className={RANGE_CLS}
                         aria-label="Concentration minutes"
                       />
                       <span className="text-sm text-[#13293D] tabular-nums w-20 text-right">
@@ -390,7 +392,7 @@ export default function LogPage() {
                         type="range" min={0} max={240} step={5}
                         value={draft.maxSustainedActivityMinutes ?? 30}
                         onChange={e => upd({ maxSustainedActivityMinutes: parseInt(e.target.value) })}
-                        className="flex-1 h-2 rounded-full appearance-none cursor-pointer accent-[#1E7F94] bg-[#DDE6EB]"
+                        className={RANGE_CLS}
                         aria-label="Max sustained activity minutes"
                       />
                       <span className="text-sm text-[#13293D] tabular-nums w-20 text-right">
@@ -415,7 +417,7 @@ export default function LogPage() {
                         type="range" min={0} max={16} step={0.5}
                         value={draft.sleepHours ?? 7}
                         onChange={e => upd({ sleepHours: parseFloat(e.target.value) })}
-                        className="flex-1 h-2 rounded-full appearance-none cursor-pointer accent-[#1E7F94] bg-[#DDE6EB]"
+                        className={RANGE_CLS}
                         aria-label="Sleep hours"
                       />
                       <span className="text-sm text-[#13293D] tabular-nums w-14 text-right">{draft.sleepHours ?? 7}h</span>
@@ -434,7 +436,7 @@ export default function LogPage() {
                         type="range" min={0} max={8} step={0.5}
                         value={draft.napHours ?? 0}
                         onChange={e => upd({ napHours: parseFloat(e.target.value) })}
-                        className="flex-1 h-2 rounded-full appearance-none cursor-pointer accent-[#1E7F94] bg-[#DDE6EB]"
+                        className={RANGE_CLS}
                         aria-label="Nap hours"
                       />
                       <span className="text-sm text-[#13293D] tabular-nums w-14 text-right">{draft.napHours ?? 0}h</span>

@@ -1,4 +1,5 @@
 import { LogEntry, UserSettings, AppData } from '@/types'
+import { isClient } from '@/lib/utils'
 
 const STORAGE_KEY = 'claimguard_v1'
 const APP_VERSION = '1.2.0'
@@ -12,10 +13,6 @@ const DEFAULT_SETTINGS: UserSettings = {
   reminderEnabled: false,
   biometricEnabled: false,
   companionId: 'neutral',
-}
-
-function isClient(): boolean {
-  return typeof window !== 'undefined'
 }
 
 export function loadData(): AppData {
